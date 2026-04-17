@@ -1,5 +1,5 @@
 import { writeFileSync } from "node:fs";
-import { costForChat, costForAudio } from "./pricing.js";
+import { costForChat, costForAudio, costForTts } from "./pricing.js";
 
 export interface ChatEntry {
   step: string;
@@ -21,7 +21,16 @@ export interface AudioEntry {
   timestamp: string;
 }
 
-export type UsageEntry = ChatEntry | AudioEntry;
+export interface TtsEntry {
+  step: string;
+  model: string; // the voice name, e.g. th-TH-Chirp3-HD-Achird
+  kind: "tts";
+  characters: number;
+  costUsd: number;
+  timestamp: string;
+}
+
+export type UsageEntry = ChatEntry | AudioEntry | TtsEntry;
 
 export interface StepTotal {
   calls: number;
@@ -33,6 +42,7 @@ export interface UsageTotals {
   cachedTokens: number;
   completionTokens: number;
   audioMinutes: number;
+  ttsCharacters: number;
   costUsd: number;
   byStep: Record<string, StepTotal>;
   byModel: Record<string, StepTotal>;
@@ -89,6 +99,22 @@ export function recordAudio(
   });
 }
 
+export function recordTts(
+  step: string,
+  voice: string,
+  characters: number,
+): void {
+  const costUsd = costForTts(characters);
+  entries.push({
+    step,
+    model: voice,
+    kind: "tts",
+    characters,
+    costUsd,
+    timestamp: new Date().toISOString(),
+  });
+}
+
 export function getEntries(): UsageEntry[] {
   return entries.slice();
 }
@@ -99,6 +125,7 @@ export function getTotals(): UsageTotals {
     cachedTokens: 0,
     completionTokens: 0,
     audioMinutes: 0,
+    ttsCharacters: 0,
     costUsd: 0,
     byStep: {},
     byModel: {},
@@ -111,8 +138,10 @@ export function getTotals(): UsageTotals {
       totals.promptTokens += e.promptTokens;
       totals.cachedTokens += e.cachedTokens;
       totals.completionTokens += e.completionTokens;
-    } else {
+    } else if (e.kind === "audio") {
       totals.audioMinutes += e.minutes;
+    } else {
+      totals.ttsCharacters += e.characters;
     }
 
     const step = (totals.byStep[e.step] ??= { calls: 0, costUsd: 0 });

@@ -45,6 +45,7 @@ export async function preprocessAll(
       englishTextWithMarkers: pauses.text,
       pauseCount: pauses.count,
       pausePositions: pauses.positions,
+      pauseGapsMs: pauses.gapsMs,
       targetSyllables: budget.targetSyllables,
       minSyllables: budget.minSyllables,
       maxSyllables: budget.maxSyllables,

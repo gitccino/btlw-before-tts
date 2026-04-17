@@ -38,26 +38,48 @@ async function extractCandidateTerms(
 
   recordChat("glossary", openaiModel, resp.usage);
 
-  // fix: aliases key missing -> normalize external JSON imme after parse
-  // const parsed = JSON.parse(resp.choices[0].message.content!) as { entries: GlossaryEntry[] }
   const parsed = JSON.parse(resp.choices[0].message.content!) as {
     entries?: unknown[];
   };
 
-  const entries: GlossaryEntry[] = (Array.isArray(parsed) ? parsed.entries : [])
-    .map((e: any) => ({
-      term: String(e?.term ?? "").trim(),
-      aliases: Array.isArray(e?.aliases)
-        ? e.aliases.map((a: unknown) => String(a)).filter(Boolean)
-        : [],
-      treatment:
-        e?.treatment === "translate" || e?.treatment === "transliterate"
-          ? e.treatment
-          : "keep-english",
-      thaiForm: typeof e?.thaiForm === "string" ? e.thaiForm : undefined,
-      notes: typeof e?.notes === "string" ? e.notes : undefined,
-    }))
-    .filter((e) => e.term.length > 0);
+  const allowedTreatments = new Set<GlossaryEntry["treatment"]>([
+    "keep-english",
+    "translate",
+    "transliterate",
+  ]);
+
+  const entries: GlossaryEntry[] = (
+    Array.isArray(parsed.entries) ? parsed.entries : []
+  ).flatMap((raw): GlossaryEntry[] => {
+    if (!raw || typeof raw !== "object") return [];
+
+    const entry = raw as Record<string, unknown>;
+    const term = typeof entry.term === "string" ? entry.term.trim() : "";
+    if (!term) return [];
+
+    const treatment = entry.treatment as GlossaryEntry["treatment"];
+    if (!allowedTreatments.has(treatment)) {
+      return [];
+    }
+
+    return [
+      {
+        term,
+        aliases: Array.isArray(entry.aliases)
+          ? entry.aliases
+              .filter((alias): alias is string => typeof alias === "string")
+              .map((alias) => alias.trim())
+              .filter(Boolean)
+          : [],
+        treatment,
+        thaiForm:
+          typeof entry.thaiForm === "string"
+            ? entry.thaiForm.trim()
+            : undefined,
+        notes: typeof entry.notes === "string" ? entry.notes.trim() : undefined,
+      },
+    ];
+  });
   return { entries };
 }
 
