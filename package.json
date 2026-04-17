@@ -4,9 +4,11 @@
     "test": "npx tsx --test test/**/*.test.ts"
   },
   "dependencies": {
+    "@google-cloud/text-to-speech": "^6.4.0",
     "dotenv": "^17.4.2",
     "node-webvtt": "^1.9.4",
-    "openai": "^6.34.0"
+    "openai": "^6.34.0",
+    "p-limit": "^7.3.0"
   },
   "devDependencies": {
     "@types/node": "^25.6.0",

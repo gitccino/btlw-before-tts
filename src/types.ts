@@ -28,6 +28,7 @@ export interface PreprocessedChunk extends Chunk {
   englishTextWithMarkers: string; // with [P] tokens
   pauseCount: number;
   pausePositions: number[]; // offsets in englishText
+  pauseGapsMs: number[]; // original English gap (ms) per [P], length matches pauseCount; empty for VTT path
 
   // From duration budgeting
   targetSyllables: number; // acceptable range derived from this
@@ -72,5 +73,8 @@ export interface TranslatedChunk {
   startMs: number;
   endMs: number;
   englishText: string;
-  thaiText: string;
+  thaiText: string; // clean for subtitles/markdown — [P] stripped
+  thaiTextWithPauses: string; // retains raw [P] markers from translator; TTS input
+  pauseGapsMs: number[]; // carried from PreprocessedChunk for downstream pause tiering
+  thaiTextWithTieredPauses?: string; // set by the TTS pause-refinement pass: [P] → [pause short|pause|pause long]
 }

@@ -30,6 +30,10 @@ export const PRICING: Record<string, ModelPrice> = {
 
 export const WHISPER_PRICE_PER_MINUTE = 0.006;
 
+// Google Chirp 3 HD — $0.030 per 1,000 characters (verify occasionally).
+// https://cloud.google.com/text-to-speech/pricing
+export const CHIRP3_HD_PRICE_PER_1K_CHARS = 0.03;
+
 const FALLBACK_MODEL = "gpt-4.1-mini";
 const warnedModels = new Set<string>();
 
@@ -69,4 +73,8 @@ export function costForChat(
 
 export function costForAudio(minutes: number): number {
   return minutes * WHISPER_PRICE_PER_MINUTE;
+}
+
+export function costForTts(characters: number): number {
+  return (characters / 1000) * CHIRP3_HD_PRICE_PER_1K_CHARS;
 }

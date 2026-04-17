@@ -75,12 +75,16 @@ for (const chunk of preprocessed) {
   }
 
   const thai = await translateChunk(chunk, persona, glossary);
+  const thaiWithPauses = thai.trim();
+  const thaiClean = thaiWithPauses.replace(/\s*\[P\]\s*/g, " ").trim();
 
   translated.push({
     startMs: chunk.startMs,
     endMs: chunk.endMs,
     englishText: chunk.englishText,
-    thaiText: thai.replace(/\s*\[P\]\s*/g, " ").trim(), // strip [P] markers from final output
+    thaiText: thaiClean, // clean for subtitles / markdown
+    thaiTextWithPauses: thaiWithPauses, // preserved for TTS pause tiering
+    pauseGapsMs: chunk.pauseGapsMs,
   });
 
   process.stdout.write(
