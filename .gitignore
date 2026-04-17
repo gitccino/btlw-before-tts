@@ -1,0 +1,42 @@
+# Dependencies
+node_modules/
+
+# Environment variables & secrets
+.env
+.env.*
+!.env.example
+
+# Build output
+dist/
+build/
+
+# Pipeline output (generated audio, video, transcripts, etc.)
+output/
+
+# OS metadata
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+logs/
+
+# TypeScript build info
+*.tsbuildinfo
+
+# Editor / IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# API keys / credentials (belt-and-suspenders patterns)
+*.pem
+*.key
+*.p12
+*.pfx
+secrets/
+credentials/
+
+# Claude / AI assistant context
+.claude/

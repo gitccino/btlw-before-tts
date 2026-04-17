@@ -1,0 +1,1 @@
+Increase maxChunkDurationMs to 12,000

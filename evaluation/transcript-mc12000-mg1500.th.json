@@ -1,0 +1,38 @@
+[
+  {
+    "startMs": 0,
+    "endMs": 11900,
+    "englishText": "Hi, I'm Zoe, and I work on Anthropic's education team. And hi, I'm Kelsey, Director of Partnerships at GivingTuesday. At Anthropic, we believe that AI can help solve humanity's most important problems,",
+    "thaiText": "สวัสดีค่ะ ดิฉันชื่อโซอี้ ทำงานในทีมการศึกษาของ Anthropic สวัสดีค่ะ ดิฉันเคลซี่ ผู้อำนวยการฝ่ายความร่วมมือที่ GivingTuesday ที่ Anthropic เราเชื่อว่า AI จะช่วยแก้ปัญหาสำคัญของมนุษยชาติได้ค่ะ"
+  },
+  {
+    "startMs": 12360,
+    "endMs": 23680,
+    "englishText": "and nonprofits are on the front lines of those challenges. That's why they deserve AI that's built for their reality. And that's why Cloud for Nonprofits is designed as an ecosystem, not just a product.",
+    "thaiText": "องค์กรไม่แสวงหากำไรอยู่แนวหน้าในความท้าทายเหล่านั้น เพราะฉะนั้นจึงสมควรได้ AI ที่ตอบโจทย์ความจริงของพวกเขา และนั่นคือเหตุผลที่ Cloud for Nonprofits ถูกออกแบบให้เป็นระบบนิเวศ ไม่ใช่แค่"
+  },
+  {
+    "startMs": 23900,
+    "endMs": 31780,
+    "englishText": "That is also why we're partnering on AI Fluency for Nonprofits, a course designed specifically for mission-driven teams.",
+    "thaiText": "นั่นก็เป็นเหตุผลที่เราร่วมมือทำ AI Fluency for Nonprofits คอร์สที่ออกแบบมาเพื่อภารกิจโดยเฉพาะค่ะ"
+  },
+  {
+    "startMs": 32540,
+    "endMs": 42240,
+    "englishText": "In this course, we'll explore AI fluency through the context of nonprofit work. We'll talk about the 4D framework for fluent AI use, and you'll learn practical applications",
+    "thaiText": "ในคอร์สนี้จะพาเรียนรู้ความคล่องตัวใน AI ผ่านงานองค์กรไม่แสวงหากำไร จะพูดถึงกรอบ 4D สำหรับการใช้ AI อย่างชำนาญ และจะได้เรียนรู้วิธีปฏิบัติจริงค่ะ"
+  },
+  {
+    "startMs": 42240,
+    "endMs": 51420,
+    "englishText": "for the work you actually do—grant writing, donor communications, program reporting, data analysis—all while keeping your mission at the center.",
+    "thaiText": "สำหรับงานที่ทำจริงๆ—การเขียนข้อเสนอขอทุน การสื่อสารกับผู้บริจาค รายงานโครงการ การวิเคราะห์ข้อมูล ทั้งหมดนี้โดยยังคงเป้าหมายหลักไว้เสมอค่ะ"
+  },
+  {
+    "startMs": 51440,
+    "endMs": 63300,
+    "englishText": "By the end of this course, you'll be able to approach AI with confidence and intentionality. You'll have tools to consider not just when AI can help you with your work, but whether it should. Let's get started!",
+    "thaiText": "เมื่อจบคอร์สนี้ จะใช้ AI อย่างมั่นใจและมีเป้าหมายชัดเจน มีเครื่องมือช่วยพิจารณาว่า AI จะช่วยงานได้เมื่อไร และควรใช้หรือไม่ เริ่มกันเลยค่ะ"
+  }
+]

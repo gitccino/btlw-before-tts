@@ -1,0 +1,62 @@
+[
+  {
+    "startMs": 0,
+    "endMs": 6780,
+    "englishText": "Hi, I'm Zoe, and I work on Anthropic's education team. And hi, I'm Kelsey, Director of Partnerships at GivingTuesday.",
+    "thaiText": "สวัสดีค่ะ ฉันชื่อ Zoe ทำงานในทีมการศึกษาของ Anthropic สวัสดีค่ะ ฉันชื่อ Kelsey ผู้อำนวยการฝ่ายความร่วมมือที่"
+  },
+  {
+    "startMs": 7680,
+    "endMs": 14800,
+    "englishText": "At Anthropic, we believe that AI can help solve humanity's most important problems, and nonprofits are on the front lines of those challenges.",
+    "thaiText": "ที่ Anthropic เราเชื่อว่า AI จะช่วยแก้ปัญหาสำคัญของมนุษยชาติได้ และองค์กรไม่แสวงหากำไรคือแนวหน้าในเรื่องนี้ค่ะ"
+  },
+  {
+    "startMs": 15300,
+    "endMs": 17880,
+    "englishText": "That's why they deserve AI that's built for their reality.",
+    "thaiText": "เพราะแบบนี้ AI ต้องออกแบบให้เหมาะกับความเป็นจริงของพวกเขาค่ะ"
+  },
+  {
+    "startMs": 18480,
+    "endMs": 23680,
+    "englishText": "And that's why Cloud for Nonprofits is designed as an ecosystem, not just a product.",
+    "thaiText": "นั่นจึงเป็นเหตุผลที่ Cloud for Nonprofits ถูกออกแบบให้เป็นระบบนิเวศ ไม่ใช่แค่"
+  },
+  {
+    "startMs": 23900,
+    "endMs": 31780,
+    "englishText": "That is also why we're partnering on AI Fluency for Nonprofits, a course designed specifically for mission-driven teams.",
+    "thaiText": "นี่ยังเป็นเหตุผลที่เราร่วมมือกันสร้าง AI Fluency for Nonprofits คอร์สที่ออกแบบมาเพื่อองค์กรที่มีเป้าหมายชัดเจน"
+  },
+  {
+    "startMs": 32540,
+    "endMs": 36600,
+    "englishText": "In this course, we'll explore AI fluency through the context of nonprofit work.",
+    "thaiText": "ในคอร์สนี้จะพาเรียนรู้ความคล่องแคล่วในการใช้ AI ในงานองค์กรไม่แสวงหากำไรค่ะ"
+  },
+  {
+    "startMs": 37300,
+    "endMs": 42260,
+    "englishText": "We'll talk about the 4D framework for fluent AI use, and you'll learn practical applications",
+    "thaiText": "จะพูดถึงกรอบ 4D สำหรับการใช้ AI อย่างคล่องแคล่ว และคุณจะได้เรียนรู้การประยุกต์ใช้จริงค่ะ"
+  },
+  {
+    "startMs": 42260,
+    "endMs": 48020,
+    "englishText": "for the work you actually do—grant writing, donor communications, program reporting, data",
+    "thaiText": "งานที่ทำจริง—การเขียน grant การสื่อสารกับ donor การรายงานโปรแกรมค่ะ"
+  },
+  {
+    "startMs": 48920,
+    "endMs": 56300,
+    "englishText": "analysis—all while keeping your mission at the center. By the end of this course, you'll be able to approach AI with confidence and intentionality.",
+    "thaiText": "โดยยังคงให้ภารกิจเป็นจุดศูนย์กลาง พอเรียนจบคอร์สนี้จะใช้ AI ได้อย่างมั่นใจและมีเป้าหมายค่ะ"
+  },
+  {
+    "startMs": 57000,
+    "endMs": 63300,
+    "englishText": "You'll have tools to consider not just when AI can help you with your work, but whether it should. Let's get started!",
+    "thaiText": "จะมีเครื่องมือช่วยพิจารณาว่า AI จะช่วยงานได้เมื่อไหร่ และควรช่วยหรือไม่ เริ่มกันเลยค่ะ"
+  }
+]
