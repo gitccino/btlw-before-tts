@@ -4,6 +4,7 @@ import { join } from "node:path";
 import "dotenv/config";
 import type { Chunk, PersonaPack } from "../types.js";
 import type { IngestResult } from "../ingestion/youtube.js";
+import { recordChat } from "../usage/tracker.js";
 
 const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
 const openaiModel = process.env.OPENAI_MODEL || "gpt-4.1-mini";
@@ -36,6 +37,7 @@ export async function extractPersona(
     ],
   });
 
+  recordChat("persona", openaiModel, resp.usage);
   return JSON.parse(resp.choices[0].message.content!) as PersonaPack;
 }
 

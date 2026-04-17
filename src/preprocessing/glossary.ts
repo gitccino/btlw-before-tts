@@ -2,6 +2,7 @@ import OpenAI from "openai";
 import { existsSync, readFileSync } from "node:fs";
 import "dotenv/config";
 import type { Chunk, Glossary, GlossaryEntry } from "../types.js";
+import { recordChat } from "../usage/tracker.js";
 
 const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
 const openaiModel = process.env.OPENAI_MODEL || "gpt-4.1-mini";
@@ -34,6 +35,8 @@ async function extractCandidateTerms(
       },
     ],
   });
+
+  recordChat("glossary", openaiModel, resp.usage);
 
   // fix: aliases key missing -> normalize external JSON imme after parse
   // const parsed = JSON.parse(resp.choices[0].message.content!) as { entries: GlossaryEntry[] }

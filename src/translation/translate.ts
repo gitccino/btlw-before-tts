@@ -6,6 +6,7 @@ import {
   buildTranslationUserPrompt,
 } from "./prompts.js";
 import { countThaiSyllables } from "../util/thaiSyllables.js";
+import { recordChat } from "../usage/tracker.js";
 
 const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
 const openaiModel = process.env.OPENAI_MODEL || "gpt-4.1-mini";
@@ -47,6 +48,8 @@ export async function translateChunk(
       { role: "user", content: buildTranslationUserPrompt(chunk) },
     ],
   });
+
+  recordChat("translate", openaiModel, resp.usage);
 
   const parsed = JSON.parse(resp.choices[0].message.content!) as {
     thai: string;

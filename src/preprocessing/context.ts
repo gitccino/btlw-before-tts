@@ -1,6 +1,7 @@
 import OpenAI from "openai";
 import "dotenv/config";
 import type { Chunk } from "../types.js";
+import { recordChat } from "../usage/tracker.js";
 
 const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
 const openaiModel = process.env.OPENAI_MODEL || "gpt-4.1-mini";
@@ -40,5 +41,6 @@ async function summarizeUpTo(chunksSoFar: Chunk[]): Promise<string> {
       { role: "user", content: text },
     ],
   });
+  recordChat("context-summary", openaiModel, resp.usage);
   return resp.choices[0].message.content!.trim();
 }

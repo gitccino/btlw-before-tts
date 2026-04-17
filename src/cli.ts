@@ -9,6 +9,10 @@ import { buildGlossary } from "./preprocessing/glossary.js";
 import { preprocessAll } from "./preprocessing/index.js";
 import { translateChunk } from "./translation/translate.js";
 import { writeJson, writeMarkdown, writeSrt } from "./output/index.js";
+import {
+  writeTo as writeUsage,
+  getTotals as getUsageTotals,
+} from "./usage/tracker.js";
 import type { TranslatedChunk } from "./types.js";
 
 const url = process.argv[2];
@@ -91,7 +95,20 @@ writeJson(`${outDir}/transcript.th.json`, translated);
 writeMarkdown(`${outDir}/transcript.th.md`, translated);
 writeSrt(`${outDir}/transcript.th.srt`, translated);
 
+// ── Usage / cost tracker ──────────────────────────────────────────────────────
+writeUsage(`${outDir}/usage.json`, openaiModel);
+const totals = getUsageTotals();
+const totalCalls = Object.values(totals.byStep).reduce(
+  (n, s) => n + s.calls,
+  0,
+);
+console.log(
+  `  usage: $${totals.costUsd.toFixed(4)} across ${totalCalls} API calls ` +
+    `(prompt ${totals.promptTokens}, cached ${totals.cachedTokens}, completion ${totals.completionTokens})`,
+);
+
 console.log(`\nDone. Output in ${outDir}/`);
 console.log(`  ${outDir}/transcript.th.json  ← TTS input`);
 console.log(`  ${outDir}/transcript.th.md    ← human review`);
 console.log(`  ${outDir}/transcript.th.srt   ← subtitle player`);
+console.log(`  ${outDir}/usage.json          ← token + cost tracker`);
