@@ -3,13 +3,14 @@ import "dotenv/config";
 import type { Chunk } from "../types.js";
 
 const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
+const openaiModel = process.env.OPENAI_MODEL || "gpt-4.1-mini";
 
 // Returns a map of chunkIndex → rollingSummary to attach before translation.
 // Summary regenerates every summaryEveryN chunks to stay current without
 // paying for a summarization call on every single chunk.
 export async function buildRollingContext(
   chunks: Chunk[],
-  summaryEveryN = 5
+  summaryEveryN = 5,
 ): Promise<Map<number, string>> {
   const summaries = new Map<number, string>();
   let currentSummary = "The video has just started.";
@@ -27,7 +28,7 @@ export async function buildRollingContext(
 async function summarizeUpTo(chunksSoFar: Chunk[]): Promise<string> {
   const text = chunksSoFar.map((c) => c.englishText).join(" ");
   const resp = await openai.chat.completions.create({
-    model: "gpt-4.1-mini",
+    model: openaiModel,
     temperature: 0.2,
     max_tokens: 150,
     messages: [

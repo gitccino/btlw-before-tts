@@ -17,6 +17,9 @@ if (!url) {
   process.exit(1);
 }
 
+const openaiModel = process.env.OPENAI_MODEL || "gpt-4.1-mini";
+console.log(`Using OpenAI model: ${openaiModel}`);
+
 // ── Stage 1 — Ingest ──────────────────────────────────────────────────────────
 console.log("Stage 1: ingesting...");
 const ingested = await ingest(url);
@@ -30,8 +33,13 @@ console.log("Stage 2: acquiring transcript...");
 const transcript = ingested.captionsPath
   ? parseVtt(ingested.captionsPath, videoId)
   : await transcribeWithWhisper(ingested.audioPath!, videoId);
-writeFileSync(`${outDir}/transcript.en.json`, JSON.stringify(transcript, null, 2));
-console.log(`  source: ${transcript.source}, segments: ${transcript.segments.length}`);
+writeFileSync(
+  `${outDir}/transcript.en.json`,
+  JSON.stringify(transcript, null, 2),
+);
+console.log(
+  `  source: ${transcript.source}, segments: ${transcript.segments.length}`,
+);
 
 // ── Stage 3 — Preprocessing ───────────────────────────────────────────────────
 console.log("Stage 3: preprocessing...");
@@ -47,7 +55,10 @@ writeFileSync(`${outDir}/glossary.json`, JSON.stringify(glossary, null, 2));
 console.log(`  glossary: ${glossary.entries.length} entries`);
 
 const preprocessed = await preprocessAll(chunks, persona, glossary, videoId);
-writeFileSync(`${outDir}/preprocessed.json`, JSON.stringify(preprocessed, null, 2));
+writeFileSync(
+  `${outDir}/preprocessed.json`,
+  JSON.stringify(preprocessed, null, 2),
+);
 console.log(`  preprocessed: ${preprocessed.length} chunks`);
 
 // ── Stage 4 — Translation (sequential — preserves prevChunkTh context) ────────
@@ -68,7 +79,9 @@ for (const chunk of preprocessed) {
     thaiText: thai.replace(/\s*\[P\]\s*/g, " ").trim(), // strip [P] markers from final output
   });
 
-  process.stdout.write(`\r  translated: ${translated.length}/${preprocessed.length}`);
+  process.stdout.write(
+    `\r  translated: ${translated.length}/${preprocessed.length}`,
+  );
 }
 console.log(); // newline after progress
 

@@ -1,6 +1,11 @@
 import { existsSync, readFileSync } from "node:fs";
 import { join } from "node:path";
-import type { Chunk, PreprocessedChunk, PersonaPack, Glossary } from "../types.js";
+import type {
+  Chunk,
+  PreprocessedChunk,
+  PersonaPack,
+  Glossary,
+} from "../types.js";
 import { annotateDuration } from "./durationBudget.js";
 import {
   injectPauseMarkersFromWords,
@@ -13,7 +18,7 @@ export async function preprocessAll(
   chunks: Chunk[],
   _persona: PersonaPack,
   _glossary: Glossary,
-  videoId?: string
+  videoId?: string,
 ): Promise<PreprocessedChunk[]> {
   // Load word-level timestamps if available (Whisper path)
   const words = loadWhisperWords(videoId);

@@ -8,8 +8,26 @@ import {
 import { countThaiSyllables } from "../util/thaiSyllables.js";
 
 const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
+const openaiModel = process.env.OPENAI_MODEL || "gpt-4.1-mini";
 
 const MAX_ATTEMPTS = 3;
+
+const INCOMPLETE_ENDINGS = [
+  "แค่",
+  "ที่",
+  "และ",
+  "หรือ",
+  "เป็น",
+  "ของ",
+  "ใน",
+  "สำหรับ",
+  "โดย",
+];
+
+function looksIncomplete(thai: string): boolean {
+  const t = thai.trim();
+  return INCOMPLETE_ENDINGS.some((e) => t.endsWith(e));
+}
 
 export async function translateChunk(
   chunk: PreprocessedChunk,
@@ -18,7 +36,7 @@ export async function translateChunk(
   attempt = 1,
 ): Promise<string> {
   const resp = await openai.chat.completions.create({
-    model: "gpt-4.1-mini",
+    model: openaiModel,
     response_format: { type: "json_object" },
     temperature: attempt === 1 ? 0.4 : 0.6, // raise temperature on retry for variation
     messages: [
@@ -45,8 +63,9 @@ export async function translateChunk(
   const syllableOk =
     actualSyllables >= chunk.minSyllables &&
     actualSyllables <= chunk.maxSyllables;
+  const completeOk = !looksIncomplete(thai);
 
-  if (pauseOk && syllableOk) return thai;
+  if (pauseOk && syllableOk && completeOk) return thai;
 
   if (attempt >= MAX_ATTEMPTS) {
     console.warn(
@@ -58,9 +77,10 @@ export async function translateChunk(
   }
 
   console.warn(
-    `Chunk ${chunk.chunkIndex} retry ${attempt}: ` +
+    `${attempt === 1 ? "\n" : ""}Chunk ${chunk.chunkIndex} retry ${attempt}: ` +
       `pauses ${actualPauses}/${chunk.pauseCount}, ` +
       `syllables ${actualSyllables} (need ${chunk.minSyllables}–${chunk.maxSyllables})`,
+    // `\nFrom: ${chunk.englishText}\nTo: ${thai}\nComplete: ${completeOk ? "yes" : "no"}`,
   );
   return translateChunk(chunk, persona, glossary, attempt + 1);
 }

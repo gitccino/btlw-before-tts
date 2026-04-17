@@ -6,11 +6,12 @@ import type { Chunk, PersonaPack } from "../types.js";
 import type { IngestResult } from "../ingestion/youtube.js";
 
 const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
+const openaiModel = process.env.OPENAI_MODEL || "gpt-4.1-mini";
 
 export async function extractPersona(
   metadata: IngestResult["metadata"],
   chunks: Chunk[],
-  videoId?: string
+  videoId?: string,
 ): Promise<PersonaPack> {
   // Escape hatch: manual override wins over auto-extraction
   if (videoId) {
@@ -26,7 +27,7 @@ export async function extractPersona(
     .join(" ");
 
   const resp = await openai.chat.completions.create({
-    model: "gpt-4.1-mini",
+    model: openaiModel,
     response_format: { type: "json_object" },
     temperature: 0.2,
     messages: [
@@ -68,7 +69,7 @@ Return ONLY valid JSON with these fields:
 
 function buildPersonaPrompt(
   metadata: { title: string; description: string; channel: string },
-  firstMinute: string
+  firstMinute: string,
 ): string {
   return `
 Video metadata:

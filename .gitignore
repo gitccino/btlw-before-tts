@@ -40,3 +40,7 @@ credentials/
 
 # Claude / AI assistant context
 .claude/
+
+# extra
+cli.sh
+evaluation/

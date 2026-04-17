@@ -6,7 +6,7 @@ export interface ChunkerConfig {
 }
 
 const DEFAULT_CONFIG: ChunkerConfig = {
-  maxChunkDurationMs: 8000, // was 8000
+  maxChunkDurationMs: 8000,
   maxGapMs: 1500,
 };
 

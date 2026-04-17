@@ -4,6 +4,7 @@ import "dotenv/config";
 import type { Chunk, Glossary, GlossaryEntry } from "../types.js";
 
 const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
+const openaiModel = process.env.OPENAI_MODEL || "gpt-4.1-mini";
 
 export async function buildGlossary(
   chunks: Chunk[],
@@ -22,7 +23,7 @@ async function extractCandidateTerms(
   channelType: string,
 ): Promise<Glossary> {
   const resp = await openai.chat.completions.create({
-    model: "gpt-4.1-mini",
+    model: openaiModel,
     response_format: { type: "json_object" },
     temperature: 0.1,
     messages: [
